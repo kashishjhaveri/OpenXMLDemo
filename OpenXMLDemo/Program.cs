@@ -32,7 +32,8 @@ namespace OpenXMLDemo
             }
 
             //OpenXMLUtilites.WordDoc.CreateWordprocessingDocument(DataLines);
-            OpenXMLUtilites.Excel.CreateSpreadsheetWorkbook(DataLines);
+            OpenXMLUtilites.Excel.CreateSpreadsheetWorkbook();
+            OpenXMLUtilites.Excel.InsertData(DataLines);
         }
     }
 }
