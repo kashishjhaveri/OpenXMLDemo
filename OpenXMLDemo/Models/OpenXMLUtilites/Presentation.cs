@@ -32,7 +32,7 @@ namespace OpenXMLDemo.Models.OpenXMLUtilites
         // Insert a slide into the specified presentation.
         public static void InsertNewSlide(string presentationFile, List<string> HeaderData, List<List<string>> DataLines, string slideTitle = "Data")
         {
-            int position = 2;
+            int position = 1;
             // Open the source document as read/write. 
             using (PresentationDocument presentationDocument = PresentationDocument.Open(presentationFile, true))
             {
