@@ -38,7 +38,7 @@ namespace OpenXMLDemo.Models.OpenXMLUtilites
 
                 body.Append(newPara);
 
-                ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+                ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Png);
                 FTP.DownloadFile(Constants.FTP.ImageUrl, Constants.Locations.DesktopPath + "\\" + Constants.Locations.ImageFile);
                 using (FileStream stream = new FileStream(Constants.Locations.DesktopPath + "\\" + Constants.Locations.ImageFile, FileMode.Open))
                 {

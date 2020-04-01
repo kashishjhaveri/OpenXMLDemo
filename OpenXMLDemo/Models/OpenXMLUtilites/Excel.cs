@@ -149,7 +149,7 @@ namespace OpenXMLDemo.Models.OpenXMLUtilites
                     cell.CellValue = new CellValue(CsvRow[9]);
                     cell = InsertCellInWorksheet("L", rowIndex, worksheetPart);
                     cell.DataType = new EnumValue<CellValues>(CellValues.Date);
-                    cell.CellValue = new CellValue(Convert.ToDateTime(CsvRow[10]).ToOADate().ToString(CultureInfo.InvariantCulture));
+                    cell.CellValue = new CellValue(Convert.ToDateTime(CsvRow[10]));
                     cell = InsertCellInWorksheet("M", rowIndex, worksheetPart);
                     cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
                     cell.CellValue = new CellValue(CsvRow[11]);

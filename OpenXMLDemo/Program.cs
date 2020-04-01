@@ -16,10 +16,6 @@ namespace OpenXMLDemo
         {
             List<List<string>> DataLines = new List<List<string>>();
             List<string> CsvData = new List<string>();
-            string DocFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.DocFile}";
-            string ExcelFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.ExcelFile}";
-            string PresentationFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.PptFile}";
-
             var request = (HttpWebRequest)WebRequest.Create(Constants.Locations.data_url);
             var response = (HttpWebResponse)request.GetResponse();
             string responseString;
@@ -35,24 +31,29 @@ namespace OpenXMLDemo
                     }
                 }
             }
-
+            
             List<string> HeaderData = DataLines.First();
             DataLines.RemoveAt(0);
 
-            //Models.OpenXMLUtilites.WordDoc.CreateWordprocessingDocument(HeaderData, DataLines);
+            Models.OpenXMLUtilites.WordDoc.CreateWordprocessingDocument(HeaderData, DataLines);
 
-            //Models.OpenXMLUtilites.Excel.CreateSpreadsheetWorkbook();
-            //Models.OpenXMLUtilites.Excel.InsertData(HeaderData, DataLines);
+            Models.OpenXMLUtilites.Excel.CreateSpreadsheetWorkbook();
+            Models.OpenXMLUtilites.Excel.InsertData(HeaderData, DataLines);
 
-            Models.OpenXMLUtilites.Presentation.CreatePresentation();
-            Models.OpenXMLUtilites.Presentation.AddImage(PresentationFilepath, $@"{Constants.Locations.DesktopPath}\{Constants.Locations.ImageFile}");
-            Models.OpenXMLUtilites.Presentation.InsertNewSlide(PresentationFilepath,HeaderData,DataLines,"Data");
+            //OpenXMLUtilites.Presentation.CreatePresentation();
 
+            string DocFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.DocFile}";
+            string ExcelFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.ExcelFile}";
+            
+            FTP.uploadFile(Constants.FTP.DocFile, File.ReadAllBytes(DocFilepath));
+            FTP.uploadFile(Constants.FTP.ExcelFile, File.ReadAllBytes(ExcelFilepath));
 
-            //FTP.uploadFile(Constants.FTP.DocFile, File.ReadAllBytes(DocFilepath));
-            //FTP.uploadFile(Constants.FTP.ExcelFile, File.ReadAllBytes(ExcelFilepath));
-            //FTP.uploadFile(Constants.FTP.PptFile, File.ReadAllBytes(PresentationFilepath));
-
+            //filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.PptFile}";
+            //using (StreamReader sourceStream = new StreamReader(filepath))
+            //{
+            //    fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+            //}
+            //FTP.uploadFile(Constants.FTP.PptFile, fileContents);
         }
     }
 }
