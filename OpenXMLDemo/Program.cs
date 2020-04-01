@@ -42,20 +42,11 @@ namespace OpenXMLDemo
 
             //OpenXMLUtilites.Presentation.CreatePresentation();
 
-            byte[] fileContents;
-            string filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.DocFile}";
-            using (StreamReader sourceStream = new StreamReader(filepath))
-            {
-                fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
-            }
-            FTP.uploadFile(Constants.FTP.DocFile, fileContents);
-
-            filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.ExcelFile}";
-            using (StreamReader sourceStream = new StreamReader(filepath))
-            {
-                fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
-            }
-            FTP.uploadFile(Constants.FTP.ExcelFile, fileContents);
+            string DocFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.DocFile}";
+            string ExcelFilepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.ExcelFile}";
+            
+            FTP.uploadFile(Constants.FTP.DocFile, File.ReadAllBytes(DocFilepath));
+            FTP.uploadFile(Constants.FTP.ExcelFile, File.ReadAllBytes(ExcelFilepath));
 
             //filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.PptFile}";
             //using (StreamReader sourceStream = new StreamReader(filepath))
