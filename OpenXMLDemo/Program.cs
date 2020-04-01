@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace OpenXMLDemo
 {
@@ -30,10 +31,38 @@ namespace OpenXMLDemo
                     }
                 }
             }
+            
+            List<string> HeaderData = DataLines.First();
+            DataLines.RemoveAt(0);
 
-            //OpenXMLUtilites.WordDoc.CreateWordprocessingDocument(DataLines);
-            OpenXMLUtilites.Excel.CreateSpreadsheetWorkbook();
-            OpenXMLUtilites.Excel.InsertData(DataLines);
+            Models.OpenXMLUtilites.WordDoc.CreateWordprocessingDocument(HeaderData, DataLines);
+
+            Models.OpenXMLUtilites.Excel.CreateSpreadsheetWorkbook();
+            Models.OpenXMLUtilites.Excel.InsertData(HeaderData, DataLines);
+
+            //OpenXMLUtilites.Presentation.CreatePresentation();
+
+            byte[] fileContents;
+            string filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.DocFile}";
+            using (StreamReader sourceStream = new StreamReader(filepath))
+            {
+                fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+            }
+            FTP.uploadFile(Constants.FTP.DocFile, fileContents);
+
+            filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.ExcelFile}";
+            using (StreamReader sourceStream = new StreamReader(filepath))
+            {
+                fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+            }
+            FTP.uploadFile(Constants.FTP.ExcelFile, fileContents);
+
+            //filepath = $@"{Constants.Locations.DesktopPath}\{Constants.FTP.PptFile}";
+            //using (StreamReader sourceStream = new StreamReader(filepath))
+            //{
+            //    fileContents = Encoding.UTF8.GetBytes(sourceStream.ReadToEnd());
+            //}
+            //FTP.uploadFile(Constants.FTP.PptFile, fileContents);
         }
     }
 }

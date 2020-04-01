@@ -186,7 +186,7 @@ namespace OpenXMLDemo.Models
             return new byte[0];
         }
 
-        private static void uploadFile(string FileName, byte[] fileContents)
+        public static void uploadFile(string FileName, byte[] fileContents)
         {
             // Connect to FTP to upload the file and configure request, Also add the file you want to update
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(Constants.FTP.BaseUrl + "/" + FileName);
